@@ -6,14 +6,21 @@ import time
 # INIT pyaudio
 p = pyaudio.PyAudio()
 
-### Mic ###
+# Import chord dict
+# from Assets import chords
+# chords = chords.chords
+# print(chords["Test Chord"])
 
+### Mic ###
 stream = p.open(
     format=pyaudio.paInt16, 
     channels=1,
     rate=16000,
     input=True,
     frames_per_buffer=1024)
+
+# Input chord name
+chord_name = input("Input Chord Name: ")
 
 # CD
 print("3")
@@ -28,6 +35,7 @@ time.sleep(0.5)
 # Arr to store
 frames = []
 
+# Buffer count to limit recording time
 buffers = 0
 
 try:
@@ -51,8 +59,11 @@ print("Done")
 # Convert to float p array for librosa
 audio_data = audio_data.astype(np.float32)
 
-# Get chroma?
+# Get chroma
 chroma = librosa.feature.chroma_stft(y=audio_data, sr=44100)
 avg_chroma = np.mean(chroma, axis=1)
 
-print(avg_chroma)
+print(f'"{chord_name}" : {list(avg_chroma)}')
+
+
+
