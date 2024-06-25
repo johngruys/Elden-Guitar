@@ -13,10 +13,10 @@ chord_input = input("Chord Name: ")
 running = True
 
 ### Screen (Object) ###
-screen = py.display.set_mode((600, 600))
+screen = py.display.set_mode((600, 250))
 
 ### Title and Logo ###
-py.display.set_caption("Elden Guitar")
+py.display.set_caption("Elden Guitar Calibration")
 icon = py.image.load("Assets/guitar.png")
 py.display.set_icon(icon)
 
@@ -42,7 +42,7 @@ C = Calibrator()
 
 while running:
     
-    screen.fill(white)
+    screen.fill(tan)
     
     ### Draw Instructions
     title = "Calibration"
@@ -67,10 +67,13 @@ while running:
                     
                     
     ### Calibration text ###
-    chord_text = "Creating a profile for " + chord_input 
+    chord_text = "Creating a profile for "
+    input_text = chord_input
     chord_font = py.font.SysFont("ariel", 35)
+    input_disp = chord_font.render(input_text, True, blue)
     chord_disp = chord_font.render(chord_text, True, black)
-    screen.blit(chord_disp, (130, 80))
+    screen.blit(chord_disp, (165, 70))
+    screen.blit(input_disp, (245, 110))
     
     # CD
     cd_text = ""
@@ -80,16 +83,16 @@ while running:
     if (calibrating):
         if (elapsed < 1):
             cd_text = "3"
-            py.draw.rect(screen, red, (270, 120, 34, 45), 0, 2)
+            py.draw.rect(screen, red, (260, 145, 34, 45), 0, 2)
         elif (elapsed < 2):
             cd_text = "2"
-            py.draw.rect(screen, red, (270, 120, 34, 45), 0, 2)
+            py.draw.rect(screen, red, (260, 145, 34, 45), 0, 2)
         elif (elapsed < 3):
             cd_text = "1"
-            py.draw.rect(screen, red, (270, 120, 34, 45), 0, 2)
+            py.draw.rect(screen, red, (260, 145, 34, 45), 0, 2)
         elif (elapsed < 3.1):
             cd_text = "Go!"
-            py.draw.rect(screen, green, (270, 120, 65, 45), 0, 2)
+            py.draw.rect(screen, green, (260, 145, 65, 45), 0, 2)
         else:
             C.calibrate(chord_input)
             calibrating = False
@@ -103,8 +106,8 @@ while running:
     cd_font = py.font.SysFont("ariel", 35)
     cd_disp = cd_font.render(cd_text, True, black)
     result_disp = cd_font.render(result_text, True, black)
-    screen.blit(cd_disp, (280, 130))
-    screen.blit(result_disp, (250, 150))
+    screen.blit(cd_disp, (270, 155))
+    screen.blit(result_disp, (260, 155))
         
     ### Update Screen ###
     clock.tick(20)

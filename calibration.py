@@ -30,19 +30,7 @@ class Calibrator():
         
     def calibrate(self, chord_name):
         
-        self.chord_name = chord_name
-        
-        # # Countdown
-        # print("3")
-        # time.sleep(1)
-        # print("2")
-        # time.sleep(1)
-        # print("1")
-        # time.sleep(1)
-        # print("Go!")
-        # time.sleep(0.5)
-        
-        
+        self.chord_name = chord_name        
         
         ### Record ###
         try:
@@ -57,6 +45,7 @@ class Calibrator():
         self.stream.stop_stream()
         self.stream.close()
         self.p.terminate()
+        # print("Done")
         self.convert()
             
             
@@ -77,7 +66,7 @@ class Calibrator():
     def convert(self):
         audio_data = np.hstack(self.frames)
         audio_data = audio_data.astype(np.float32)
-        chroma = librosa.feature.chroma_stft(y=audio_data, sr=44100)
+        chroma = librosa.feature.chroma_stft(y=audio_data, sr=16000)
         avg_chroma = np.mean(chroma, axis=1)
         
         # Print and return
