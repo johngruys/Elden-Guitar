@@ -66,8 +66,9 @@ while (running):
         if event.type == py.QUIT:
             running = False
     
-    
-    chord_detected = match_chroma(T.sample())
+    chroma = T.sample()
+    chord_detected = match_chroma(chroma)
+    print(chroma)
 
     #### Optimize by not updating constant titles
     # Display the chord

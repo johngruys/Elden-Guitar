@@ -12,29 +12,30 @@ class Tuner():
         self.buffer_limit = buffer_limit
         
         
+        # # Frame arr
+        # self.frames = []
+
+        # # Buffer count to limit recording time
+        # self.buffers = 0
+                
+    ### Samples the audio from microphone and stores it in buffers ###
+    def sample(self):
+        
         # Init mic
         self.p = pyaudio.PyAudio()
         # Open channel
         self.stream = self.p.open(
             format=pyaudio.paInt16, 
             channels=1,
-            rate=bit_rate,
+            rate=self.bit_rate,
             input=True,
             frames_per_buffer=self.frames_per_buffer)
-        
-        # Stop stream until sample is called
-        self.stream.stop_stream()
         
         # Frame arr
         self.frames = []
 
         # Buffer count to limit recording time
         self.buffers = 0
-                
-    ### Samples the audio from microphone and stores it in buffers ###
-    def sample(self):
-        # Start Stream
-        self.stream.start_stream()
         
         # Record
         while (self.buffers < self.buffer_limit):
@@ -44,6 +45,8 @@ class Tuner():
                 
         # Close Stream
         self.stream.stop_stream()
+        self.stream.close()
+        self.p.terminate()
         
         # Convert
         return self.convert()
