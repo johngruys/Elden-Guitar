@@ -10,7 +10,7 @@ known_chords = chords.chords
 chord_mappings = chords.chord_mappings
 
 # Create tuner object
-T = Tuner(22050, 5, 1024)
+T = Tuner(44100, 10, 500)
 
 # Confidence threshold (Implement if doesn't work otherwise)
 # confidence = 0.85

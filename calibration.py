@@ -7,11 +7,11 @@ import pyperclip
 class Calibrator():
     def __init__(self):
         self.p = pyaudio.PyAudio()
-
+        self.bit_rate = 44100
         self.stream = self.p.open(
             format=pyaudio.paInt16, 
             channels=1,
-            rate=16000,
+            rate=self.bit_rate,
             input=True,
             frames_per_buffer=1024)
         
@@ -53,7 +53,7 @@ class Calibrator():
         self.stream = self.p.open(
             format=pyaudio.paInt16, 
             channels=1,
-            rate=16000,
+            rate=self.bit_rate,
             input=True,
             frames_per_buffer=1024)
         
@@ -66,7 +66,7 @@ class Calibrator():
     def convert(self):
         audio_data = np.hstack(self.frames)
         audio_data = audio_data.astype(np.float32)
-        chroma = librosa.feature.chroma_stft(y=audio_data, sr=16000)
+        chroma = librosa.feature.chroma_stft(y=audio_data, sr=self.bit_rate)
         avg_chroma = np.mean(chroma, axis=1)
         
         # Print and return
